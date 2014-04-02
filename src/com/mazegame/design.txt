@@ -1,0 +1,16 @@
+design
+
+two grids
+	display grid
+		bounded area of size 2r+1 x 2r+1 with character in middle taken out of root grid
+	root grid
+		contains entire maze and actual character location
+
+maze
+	border
+		extends rock
+	
+	character
+		extends actor
+	
+	
