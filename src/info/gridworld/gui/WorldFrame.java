@@ -196,6 +196,7 @@ public class WorldFrame<T> extends JFrame
         pack();
         repaint(); // to show message
         display.setGrid(gr);
+        control.run();
     }
 
     public void repaint()
