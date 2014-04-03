@@ -71,6 +71,7 @@ public class World<T>
         {
             frame = new WorldFrame<T>(this);
             frame.setVisible(true);
+            frame.setSize(574, 698);
         }
         else
             frame.repaint();
