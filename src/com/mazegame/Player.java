@@ -9,6 +9,38 @@ public class Player extends Actor {
         setColor(null);
     }
 
+    public void move(int dir) {
+        moveTo(getLocation().getAdjacentLocation(dir));
+        setDirection(dir);
+    }
+
+    // Handle the display grid
+    @Override
+    public void moveTo(Location newLocation)
+    {
+        Grid<Actor> grid = getGrid();
+        // We will actually be in the center of the display
+        Location location = new Location(getGrid().getNumRows() / 2, getGrid().getNumCols() / 2);
+        if (grid == null)
+            throw new IllegalStateException("This actor is not in a grid.");
+        if (grid.get(location) != this)
+            throw new IllegalStateException(
+                    "The grid contains a different actor at location "
+                            + location + ".");
+        if (!grid.isValid(newLocation))
+            throw new IllegalArgumentException("Location " + newLocation
+                    + " is not valid.");
+
+        if (newLocation.equals(location))
+            return;
+        grid.remove(location);
+        Actor other = grid.get(newLocation);
+        if (other != null)
+            other.removeSelfFromGrid();
+        location = newLocation;
+        grid.put(location, this);
+    }
+
     // We do not actually change direction, but rather change which image we display
     @Override
     public void setDirection(int dir) {
