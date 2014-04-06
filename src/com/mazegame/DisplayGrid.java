@@ -20,9 +20,15 @@ public class DisplayGrid<E> extends BoundedGrid<E> {
     public E get(Location loc)
     {
         if (!isValid(loc))
-            throw new IllegalArgumentException("Location " + loc
-                    + " is not valid");
-        return (E) rootGrid.get(new Location(loc.getRow() + offset.getRow(), loc.getCol() + offset.getCol()));
+            return null;
+        try
+        {
+            return (E) rootGrid.get(new Location(loc.getRow() + offset.getRow(), loc.getCol() + offset.getCol()));
+        }
+        catch(IllegalArgumentException e)
+        {
+            return null;
+        }
     }
 
     public E put(Location loc, E obj)

@@ -11,29 +11,34 @@ public class MazeGame {
         final ActorWorld world = new ActorWorld(displayGrid);
         world.addOccupantClass(Player.class.getName());
         world.setMessage("Press the arrow keys to move!");
+        final Player player = new Player();
         int[][] rocks = {
                 //0  1  2  3  4  5  6  7  8  9  10
-                {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, // 0
-                {0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0}, // 1
-                {0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0}, // 2
-                {0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0}, // 3
-                {0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1}, // 4
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, // 5
-                {0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1}, // 6
-                {0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1}, // 7
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 8
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 9
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} // 10
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 0
+                {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, // 1
+                {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, // 2
+                {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, // 3
+                {1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1}, // 4
+                {1, 1, 0, 0, 0, 2, 0, 0, 0, 0, 1}, // 5
+                {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1}, // 6
+                {1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1}, // 7
+                {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, // 8
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, // 9
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1} // 10
         };
         for (int row = 0; row < rocks.length; row++) {
             for (int col = 0; col < rocks[0].length; col++) {
                 if (rocks[row][col] == 1)
-                    world.add(new Location(row, col), new Rock());
+//                  world.add(new Location(row, col), new Rock());
+                (new Rock()).putSelfInGrid(maze, new Location(row, col));
+                else if(rocks[row][col] == 2)
+                    player.putSelfInGrid(maze, new Location(row, col));
             }
         }
 
-        final Player player = new Player();
-        world.add(new Location(world.getGrid().getNumRows() / 2, world.getGrid().getNumCols() / 2), player);
+        //world.add(new Location(world.getGrid().getNumRows() / 2, world.getGrid().getNumCols() / 2), player);
+        displayGrid.setOffset(new Location(player.getLocation().getRow()-displayGrid.getNumRows()/2,
+                                                        player.getLocation().getCol()-displayGrid.getNumCols()/2));
 
         java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new java.awt.KeyEventDispatcher() {
             public boolean dispatchKeyEvent(java.awt.event.KeyEvent event) {
@@ -47,7 +52,9 @@ public class MazeGame {
 
                 if (dir != -1) {
                     player.move(dir);
-                    displayGrid.move(dir);
+                    displayGrid.setOffset(new Location(player.getLocation().getRow()-displayGrid.getNumRows()/2,
+                                                        player.getLocation().getCol()-displayGrid.getNumCols()/2));
+                    //displayGrid.move(dir);
                 }
 
                 return true;

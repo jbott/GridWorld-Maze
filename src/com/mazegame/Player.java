@@ -10,17 +10,20 @@ public class Player extends Actor {
     }
 
     public void move(int dir) {
-        moveTo(getLocation().getAdjacentLocation(dir));
+        Location newLocation = getLocation().getAdjacentLocation(dir);
+        if(getGrid().isValid(newLocation))
+            moveTo(newLocation);
         setDirection(dir);
     }
 
-    // Handle the display grid
+    // Display grid handled elsewhere, player is unaware of how the grid functions, it's absolute to him
+    /*
     @Override
     public void moveTo(Location newLocation)
     {
         Grid<Actor> grid = getGrid();
         // We will actually be in the center of the display
-        Location location = new Location(getGrid().getNumRows() / 2, getGrid().getNumCols() / 2);
+        Location loc = new Location(getGrid().getNumRows() / 2, getGrid().getNumCols() / 2);
         if (grid == null)
             throw new IllegalStateException("This actor is not in a grid.");
         if (grid.get(location) != this)
@@ -40,6 +43,7 @@ public class Player extends Actor {
         location = newLocation;
         grid.put(location, this);
     }
+    */
 
     // We do not actually change direction, but rather change which image we display
     @Override
