@@ -7,7 +7,12 @@ public class MazeGame {
     public static void main(String[] args) {
         BoundedGrid<Actor> maze = new BoundedGrid<>(51, 51);
         // Load maze into maze grid here
-        final DisplayGrid<Actor> displayGrid = new DisplayGrid<>(maze, 11, 11);
+        if(args.length < 1)
+        {
+            System.out.println("Call with displayGrid size");
+            return;
+        }
+        final DisplayGrid<Actor> displayGrid = new DisplayGrid<>(maze, Integer.parseInt(args[0]), Integer.parseInt(args[0]));
         final ActorWorld world = new ActorWorld(displayGrid);
         world.addOccupantClass(Player.class.getName());
         world.setMessage("Press the arrow keys to move!");
