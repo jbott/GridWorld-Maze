@@ -11,7 +11,7 @@ public class Player extends Actor {
 
     public void move(int dir) {
         Location newLocation = getLocation().getAdjacentLocation(dir);
-        if(getGrid().isValid(newLocation))
+        if(getGrid().isValid(newLocation) && getGrid().get(newLocation) == null)
             moveTo(newLocation);
         setDirection(dir);
     }
