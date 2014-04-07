@@ -56,5 +56,7 @@ public class DisplayGrid<E> extends BoundedGrid<E> {
     public void move(int dir) {
         offset = offset.getAdjacentLocation(dir);
     }
+	
+	
 
 }

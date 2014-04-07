@@ -17,10 +17,11 @@ public class MazeGame {
         world.addOccupantClass(Player.class.getName());
         world.setMessage("Press the arrow keys to move!");
         final Player player = new Player();
+		final Winner win = new Winner();
         int[][] rocks = {
                 //0  1  2  3  4  5  6  7  8  9  10
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 0
-                {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, // 1
+                {1, 1, 3, 1, 0, 0, 0, 0, 0, 0, 1}, // 1
                 {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, // 2
                 {1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, // 3
                 {1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1}, // 4
@@ -38,6 +39,8 @@ public class MazeGame {
                 (new Rock()).putSelfInGrid(maze, new Location(row, col));
                 else if(rocks[row][col] == 2)
                     player.putSelfInGrid(maze, new Location(row, col));
+				else if(rocks[row][col] == 3)
+					win.putSelfInGrid(maze, new Location(row, col));
             }
         }
 
@@ -61,6 +64,9 @@ public class MazeGame {
                                                         player.getLocation().getCol()-displayGrid.getNumCols()/2));
                     //displayGrid.move(dir);
                 }
+				
+				if(win.won())
+					world.setMessage("YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHH");
 
                 return true;
             }
