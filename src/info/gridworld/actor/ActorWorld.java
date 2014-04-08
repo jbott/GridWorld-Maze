@@ -16,6 +16,7 @@
 
 package info.gridworld.actor;
 
+import com.mazegame.DisplayGrid;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import info.gridworld.world.World;
@@ -56,7 +57,7 @@ public class ActorWorld extends World<Actor>
 
     public void step()
     {
-        Grid<Actor> gr = getGrid();
+        Grid<Actor> gr = ((DisplayGrid<Actor>)getGrid()).getRootGrid();
         ArrayList<Actor> actors = new ArrayList<Actor>();
         for (Location loc : gr.getOccupiedLocations())
             actors.add(gr.get(loc));
