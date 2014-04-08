@@ -37,11 +37,12 @@ public class MazeGame {
                 String key = javax.swing.KeyStroke.getKeyStrokeForEvent(event).toString();
 
                 int dir = -1;
-                if (key.equals("pressed UP"))    dir = Location.NORTH;
-                if (key.equals("pressed RIGHT")) dir = Location.EAST;
-                if (key.equals("pressed DOWN"))  dir = Location.SOUTH;
-                if (key.equals("pressed LEFT"))  dir = Location.WEST;
-
+                if (!win.won()) {
+                    if (key.equals("pressed UP")) dir = Location.NORTH;
+                    if (key.equals("pressed RIGHT")) dir = Location.EAST;
+                    if (key.equals("pressed DOWN")) dir = Location.SOUTH;
+                    if (key.equals("pressed LEFT")) dir = Location.WEST;
+                }
                 if (dir != -1) {
                     player.move(dir);
                     displayGrid.setOffset(new Location(player.getLocation().getRow()-displayGrid.getNumRows()/2,
