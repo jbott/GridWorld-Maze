@@ -52,11 +52,4 @@ public class DisplayGrid<E> extends BoundedGrid<E> {
         return rootGrid.remove(new Location(loc.getRow() + offset.getRow(), loc.getCol() + offset.getCol()));
     }
 
-
-    public void move(int dir) {
-        offset = offset.getAdjacentLocation(dir);
-    }
-	
-	
-
 }
