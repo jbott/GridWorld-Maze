@@ -38,7 +38,15 @@ public class MazeGame {
         java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new java.awt.KeyEventDispatcher() {
             public boolean dispatchKeyEvent(java.awt.event.KeyEvent event) {
                 String key = javax.swing.KeyStroke.getKeyStrokeForEvent(event).toString();
-
+				if(player.getGrid() == null)
+				{
+					world.setMessage("THE CRITTER ATE YOU BAHAHAHAAHAHAAHAHAHAHA");
+					return true;
+				}
+				
+				if(player.getLocation().getCol() == 0)
+					world.setMessage("DONT EVEN THINK ABOUT GOING THERE");
+				
                 int dir = -1;
                 if (!win.won()) {
                     if (key.equals("pressed UP")) dir = Location.NORTH;

@@ -7,9 +7,7 @@
  */
 package com.mazegame;
 
-import info.gridworld.actor.Actor;
-import info.gridworld.actor.Rock;
-import info.gridworld.actor.Bug;
+import info.gridworld.actor.*;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
 
@@ -51,6 +49,9 @@ public class MazeLoader {
                     }
 					if (rocks[col].equals("4")) {
 						(new Bug()).putSelfInGrid(maze, new Location(row, col));
+					}
+					if (rocks[col].equals("5")) {
+						(new Critter()).putSelfInGrid(maze, new Location(row, col));
 					}
                 }
                 row++;
