@@ -19,8 +19,8 @@ public class MazeGame {
         // Initialize the display grid
         if(args.length < 1)
         {
-            System.out.println("Call with displayGrid size");
-            return;
+			args = new String [1];
+			args[0] = (new Integer(7)).toString();
         }
         final DisplayGrid<Actor> displayGrid = new DisplayGrid<>(maze, Integer.parseInt(args[0]), Integer.parseInt(args[0]));
         displayGrid.setOffset(new Location(player.getLocation().getRow()-displayGrid.getNumRows()/2,
