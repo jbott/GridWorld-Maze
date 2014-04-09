@@ -16,7 +16,7 @@ public class Player extends Actor {
 		{
 			if((winner = getGrid().get(newLocation)) == null)
 				moveTo(newLocation);
-			else if(winner instanceof Winner)
+			else if(winner instanceof Flower)
 			{
 				moveTo(newLocation);
 				winner.act();
