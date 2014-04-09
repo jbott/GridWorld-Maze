@@ -2,11 +2,14 @@ package com.mazegame;
 
 import info.gridworld.actor.*;
 import info.gridworld.grid.*;
+import java.awt.*;
+import java.util.*;
 
 public class MazeGame {
     public static void main(String[] args) {
         // Create root grid
-        BoundedGrid<Actor> maze = new BoundedGrid<>(51, 51);
+		final ArrayList<Location> marks = new ArrayList<>();
+        final BoundedGrid<Actor> maze = new BoundedGrid<>(51, 51);
 
         // Load maze into maze grid here
         MazeLoader mazeLoader = new MazeLoader(MazeGame.class.getResourceAsStream("maze.txt"));
@@ -42,6 +45,25 @@ public class MazeGame {
                     if (key.equals("pressed RIGHT")) dir = Location.EAST;
                     if (key.equals("pressed DOWN")) dir = Location.SOUTH;
                     if (key.equals("pressed LEFT")) dir = Location.WEST;
+					if (key.equals("pressed SPACE")) {
+						Location inFront;
+						if (maze.get(inFront = player.getLocation().getAdjacentLocation(player.getImageDirection())) != null)
+							if(maze.get(inFront) instanceof Rock)
+							{
+								if(Color.red.equals(maze.get(inFront).getColor()))
+								{
+									maze.get(inFront).setColor(null);
+									int i;
+									if((i = marks.indexOf(inFront)) >= 0)
+										marks.remove(i);
+								}
+								else if(marks.size() < 10)
+								{
+									maze.get(inFront).setColor(Color.red);
+									marks.add(inFront);
+								}
+							}
+					}
                 }
                 if (dir != -1) {
                     player.move(dir);
